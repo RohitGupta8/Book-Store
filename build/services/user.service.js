@@ -56,7 +56,8 @@ var newUser = /*#__PURE__*/function () {
   return function newUser(_x) {
     return _ref.apply(this, arguments);
   };
-}();
+}(); // user login api
+
 
 exports.newUser = newUser;
 

@@ -17,6 +17,7 @@ var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
+/* eslint-disable prettier/prettier */
 _dotenv["default"].config();
 /**
  * Middleware to authenticate if user has a valid Authorization token

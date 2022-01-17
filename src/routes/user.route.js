@@ -13,4 +13,6 @@ router.post('/user', middleware.setRole('user'), newUserValidator, userControlle
 
 router.post('/admin', newUserValidator, middleware.setRole('admin'), userController.newUser);
 
+router.post('/login', userController.login)
+
 export default router;

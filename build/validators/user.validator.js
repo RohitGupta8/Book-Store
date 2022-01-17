@@ -9,6 +9,7 @@ exports.newUserValidator = void 0;
 
 var _joi = _interopRequireDefault(require("@hapi/joi"));
 
+/* eslint-disable prettier/prettier */
 var newUserValidator = function newUserValidator(req, res, next) {
   var schema = _joi["default"].object({
     firstName: _joi["default"].string().min(2).required().pattern(new RegExp('^[A-Za-z]{1}[a-z]{1,}$')),
