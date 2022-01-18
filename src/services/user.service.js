@@ -43,19 +43,14 @@ export const forgetPassword = async (body) => {
 export const resetPassword = async (body) => {
   const codepresent = await OTP.findOne({ email: body.email, code: body.code });
   if (codepresent) {
-    console.log('1', codepresent);
     const HashedPassword = await bcrypt.hash(body.password, 10);
     body.password = HashedPassword
-    console.log('2', HashedPassword);
-    const success = await User.findOneAndUpdate({ email: body.email }, { $set: { password: HashedPassword } },{new:true});
+    const success = await User.findOneAndUpdate( body.email , { $set: { password: HashedPassword } },{new:true});
     console.log('8',success);
     if (!success) {
-      console.log('3 - error');
       return false;
     }
-    console.log('4',success);
     return success
   }
-  console.log('5- error');
   return false;
 }
