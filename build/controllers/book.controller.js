@@ -7,7 +7,7 @@ var _typeof = require("@babel/runtime/helpers/typeof");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getBookID = exports.getBook = exports.addBook = void 0;
+exports.getBookID = exports.getBook = exports.deleteBook = exports.addBook = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
@@ -153,3 +153,44 @@ var getBookID = /*#__PURE__*/function () {
 }();
 
 exports.getBookID = getBookID;
+
+var deleteBook = /*#__PURE__*/function () {
+  var _ref4 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(req, res, next) {
+    var data;
+    return _regenerator["default"].wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.prev = 0;
+            _context4.next = 3;
+            return BookService.deleteBook(req.params._id);
+
+          case 3:
+            data = _context4.sent;
+            res.status(_httpStatusCodes["default"].NO_CONTENT).json({
+              code: _httpStatusCodes["default"].NO_CONTENT,
+              data: data,
+              message: 'Book Deleted successfully'
+            });
+            _context4.next = 10;
+            break;
+
+          case 7:
+            _context4.prev = 7;
+            _context4.t0 = _context4["catch"](0);
+            next(_context4.t0);
+
+          case 10:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4, null, [[0, 7]]);
+  }));
+
+  return function deleteBook(_x10, _x11, _x12) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+
+exports.deleteBook = deleteBook;

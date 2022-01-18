@@ -48,3 +48,16 @@ export const getBookID = async (req, res, next) => {
         next(error);
     }
 };
+
+export const deleteBook = async (req, res, next) => {
+    try {
+        const data = await BookService.deleteBook(req.params._id);
+        res.status(HttpStatus.NO_CONTENT).json({
+            code: HttpStatus.NO_CONTENT,
+            data: data,
+            message: 'Book Deleted successfully'
+        });
+    } catch (error) {
+        next(error);
+    }
+};

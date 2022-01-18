@@ -15,3 +15,8 @@ export const getBookID = async (id) => {
     const data = await Book.findById(id);
     return data;
 };
+
+export const deleteBook = async (id) => {
+    const data = await Book.findByIdAndDelete(id);
+    return data;
+};

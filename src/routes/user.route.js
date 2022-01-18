@@ -33,4 +33,7 @@ router.get('/book', userAuth, bookController.getBook);
 //api for get book by ID
 router.get('/book/:_id', userAuth, bookController.getBookID);
 
+//api for Delete book by ID
+router.delete('/book/:_id', userAuth, bookController.deleteBook);
+
 export default router;
