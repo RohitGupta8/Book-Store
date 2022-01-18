@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getBook = exports.addBook = void 0;
+exports.getBookID = exports.getBook = exports.addBook = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
@@ -71,3 +71,32 @@ var getBook = /*#__PURE__*/function () {
 }();
 
 exports.getBook = getBook;
+
+var getBookID = /*#__PURE__*/function () {
+  var _ref3 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(id) {
+    var data;
+    return _regenerator["default"].wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return _book["default"].findById(id);
+
+          case 2:
+            data = _context3.sent;
+            return _context3.abrupt("return", data);
+
+          case 4:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+
+  return function getBookID(_x2) {
+    return _ref3.apply(this, arguments);
+  };
+}();
+
+exports.getBookID = getBookID;

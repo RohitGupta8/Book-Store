@@ -35,3 +35,16 @@ export const getBook = async (req, res, next) => {
         next(error);
     }
 };
+
+export const getBookID = async (req, res, next) => {
+    try {
+        const data = await BookService.getBookID(req.params._id);
+        res.status(HttpStatus.OK).json({
+            code: HttpStatus.OK,
+            data: data,
+            message: 'Book fetched by Id successfully'
+        });
+    } catch (error) {
+        next(error);
+    }
+};

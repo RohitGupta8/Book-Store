@@ -43,6 +43,8 @@ router.patch('/reset', userController.resetPassword); //api for add books
 
 router.post('/book', _auth.userAuth, _book.newBookValidator, bookController.addBook); //api for get books
 
-router.get('/book', _auth.userAuth, bookController.getBook);
+router.get('/book', _auth.userAuth, bookController.getBook); //api for get book by ID
+
+router.get('/book/:_id', _auth.userAuth, bookController.getBookID);
 var _default = router;
 exports["default"] = _default;

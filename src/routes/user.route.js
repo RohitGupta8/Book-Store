@@ -30,4 +30,7 @@ router.post('/book',userAuth, newBookValidator, bookController.addBook);
 //api for get books
 router.get('/book', userAuth, bookController.getBook);
 
+//api for get book by ID
+router.get('/book/:_id', userAuth, bookController.getBookID);
+
 export default router;

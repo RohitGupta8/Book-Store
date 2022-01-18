@@ -10,3 +10,8 @@ export const getBook = async () => {
     const data = await Book.find();
     return data;
 };
+
+export const getBookID = async (id) => {
+    const data = await Book.findById(id);
+    return data;
+};
