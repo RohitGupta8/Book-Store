@@ -117,31 +117,33 @@ exports.login = login;
 
 var forgetPassword = /*#__PURE__*/function () {
   var _ref3 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(body) {
-    var SearchMail, mail;
+    var SearchMail;
     return _regenerator["default"].wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            _context3.next = 2;
+            console.log('1', body);
+            _context3.next = 3;
             return _user["default"].find({
               email: body.email
             });
 
-          case 2:
+          case 3:
             SearchMail = _context3.sent;
-            mail = (0, _sendEmail.sendEmail)(SearchMail);
+            console.log('2', body);
 
-            if (!mail) {
-              _context3.next = 8;
+            if (!SearchMail) {
+              _context3.next = 10;
               break;
             }
 
-            return _context3.abrupt("return", mail);
+            console.log('3');
+            return _context3.abrupt("return", (0, _sendEmail.sendEmail)(body));
 
-          case 8:
-            throw Error('EMAIL ID NOT FOUND IN DATABASE!');
+          case 10:
+            return _context3.abrupt("return", false);
 
-          case 9:
+          case 11:
           case "end":
             return _context3.stop();
         }

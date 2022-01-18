@@ -31,15 +31,10 @@ export const login = async (body) => {
 //api for forgot password
 export const forgetPassword = async (body) => {
   const SearchMail = await User.find({ email: body.email });
-  if (SearchMail){
-    const mail = sendEmail(SearchMail);
-    if (mail) {
-      return mail
-
-    } else {
-      throw Error('EMAIL ID NOT FOUND IN DATABASE!');
-    }
+  if (SearchMail) {
+    return sendEmail(body);
+  }else{
+    return false;
   }
-
 }
 
