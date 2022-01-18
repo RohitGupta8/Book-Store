@@ -41,6 +41,8 @@ router.post('/forgetpassword', userController.forgetPassword); // api for reset 
 
 router.patch('/reset', userController.resetPassword); //api for add books
 
-router.post('/book', _auth.userAuth, _book.newBookValidator, bookController.addBook);
+router.post('/book', _auth.userAuth, _book.newBookValidator, bookController.addBook); //api for get books
+
+router.get('/book', _auth.userAuth, bookController.getBook);
 var _default = router;
 exports["default"] = _default;

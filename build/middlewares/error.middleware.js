@@ -13,6 +13,8 @@ var _httpStatusCodes = _interopRequireDefault(require("http-status-codes"));
 
 var _logger = _interopRequireDefault(require("../config/logger"));
 
+/* eslint-disable prettier/prettier */
+
 /**
  * Error response middleware for 404 not found.
  *

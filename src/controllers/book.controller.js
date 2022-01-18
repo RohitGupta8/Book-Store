@@ -22,3 +22,16 @@ export const addBook = async (req, res, next) => {
         next(error);
     }
 };
+
+export const getBook = async (req, res, next) => {
+    try {
+        const data = await BookService.getBook();
+        res.status(HttpStatus.OK).json({
+            code: HttpStatus.OK,
+            data: data,
+            message: 'Books fetched successfully'
+        });
+    } catch (error) {
+        next(error);
+    }
+};

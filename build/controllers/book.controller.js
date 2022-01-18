@@ -7,7 +7,7 @@ var _typeof = require("@babel/runtime/helpers/typeof");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.addBook = void 0;
+exports.getBook = exports.addBook = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
@@ -47,7 +47,7 @@ var addBook = /*#__PURE__*/function () {
             res.status(_httpStatusCodes["default"].CREATED).json({
               code: _httpStatusCodes["default"].CREATED,
               data: data,
-              message: 'User created successfully'
+              message: 'Book created successfully'
             });
             _context.next = 10;
             break;
@@ -71,3 +71,44 @@ var addBook = /*#__PURE__*/function () {
 }();
 
 exports.addBook = addBook;
+
+var getBook = /*#__PURE__*/function () {
+  var _ref2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res, next) {
+    var data;
+    return _regenerator["default"].wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.prev = 0;
+            _context2.next = 3;
+            return BookService.getBook();
+
+          case 3:
+            data = _context2.sent;
+            res.status(_httpStatusCodes["default"].OK).json({
+              code: _httpStatusCodes["default"].OK,
+              data: data,
+              message: 'Books fetched successfully'
+            });
+            _context2.next = 10;
+            break;
+
+          case 7:
+            _context2.prev = 7;
+            _context2.t0 = _context2["catch"](0);
+            next(_context2.t0);
+
+          case 10:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[0, 7]]);
+  }));
+
+  return function getBook(_x4, _x5, _x6) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+exports.getBook = getBook;
