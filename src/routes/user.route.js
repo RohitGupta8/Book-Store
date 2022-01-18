@@ -36,4 +36,7 @@ router.get('/book/:_id', userAuth, bookController.getBookID);
 //api for Delete book by ID
 router.delete('/book/:_id', userAuth, bookController.deleteBook);
 
+//api for Delete book by ID
+router.put('/book/:_id', userAuth,newBookValidator, bookController.updateBook);
+
 export default router;

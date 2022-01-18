@@ -1,9 +1,11 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable max-len */
+/* eslint-disable prettier/prettier */
 import Book from '../models/book.model';
 
 export const addBook = async (body) => {
-  const data = await Book.create(body);
-  return data;
+    const data = await Book.create(body);
+    return data;
 };
 
 export const getBook = async () => {
@@ -18,5 +20,10 @@ export const getBookID = async (id) => {
 
 export const deleteBook = async (id) => {
     const data = await Book.findByIdAndDelete(id);
+    return data;
+};
+
+export const updateBook = async (id, body) => {
+    const data = await Book.findByIdAndUpdate(id , body ,{new:true});
     return data;
 };

@@ -61,3 +61,16 @@ export const deleteBook = async (req, res, next) => {
         next(error);
     }
 };
+
+export const updateBook = async (req, res, next) => {
+    try {
+        const data = await BookService.updateBook(req.params._id,req.body);
+        res.status(HttpStatus.OK).json({
+            code: HttpStatus.OK,
+            data: data,
+            message: 'Book updated successfully'
+        });
+    } catch (error) {
+        next(error);
+    }
+};
