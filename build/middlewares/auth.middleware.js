@@ -31,7 +31,7 @@ _dotenv["default"].config();
 
 var userAuth = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res, next) {
-    var bearerToken, _yield$jwt$verify, user;
+    var bearerToken, _jwt$verify, user;
 
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
@@ -52,29 +52,24 @@ var userAuth = /*#__PURE__*/function () {
 
           case 4:
             bearerToken = bearerToken.split(' ')[1];
-            _context.next = 7;
-            return _jsonwebtoken["default"].verify(bearerToken, 'rohit gupta');
-
-          case 7:
-            _yield$jwt$verify = _context.sent;
-            user = _yield$jwt$verify.user;
+            _jwt$verify = _jsonwebtoken["default"].verify(bearerToken, process.env.SECRET), user = _jwt$verify.user;
             res.locals.user = user;
             res.locals.token = bearerToken;
             next();
-            _context.next = 17;
+            _context.next = 14;
             break;
 
-          case 14:
-            _context.prev = 14;
+          case 11:
+            _context.prev = 11;
             _context.t0 = _context["catch"](0);
             next(_context.t0);
 
-          case 17:
+          case 14:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 14]]);
+    }, _callee, null, [[0, 11]]);
   }));
 
   return function userAuth(_x, _x2, _x3) {
