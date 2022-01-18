@@ -120,7 +120,7 @@ var forgetPassword = /*#__PURE__*/function () {
           case 0:
             _context3.prev = 0;
             _context3.next = 3;
-            return UserService.forgetPassword(req);
+            return UserService.forgetPassword(req.body);
 
           case 3:
             data = _context3.sent;

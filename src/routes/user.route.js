@@ -3,7 +3,7 @@
 /* eslint-disable prettier/prettier */
 import express from 'express';
 import * as userController from '../controllers/user.controller';
-import { forgot, newUserValidator } from '../validators/user.validator';
+import { newUserValidator } from '../validators/user.validator';
 import { setRole } from '../middlewares/auth.middleware'
 
 const router = express.Router();
@@ -16,6 +16,6 @@ router.post('/admin', newUserValidator, setRole('admin'), userController.newUser
 router.post('/login', userController.login)
 
 // sendmail to reset forgetPassword
-router.post('/forgetpassword', forgot, userController.forgetPassword)
+router.post('/forgetpassword', userController.forgetPassword)
 
 export default router;

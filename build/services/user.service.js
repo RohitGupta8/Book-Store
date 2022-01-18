@@ -116,7 +116,7 @@ var login = /*#__PURE__*/function () {
 exports.login = login;
 
 var forgetPassword = /*#__PURE__*/function () {
-  var _ref3 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req) {
+  var _ref3 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(body) {
     var SearchMail, mail;
     return _regenerator["default"].wrap(function _callee3$(_context3) {
       while (1) {
@@ -124,7 +124,7 @@ var forgetPassword = /*#__PURE__*/function () {
           case 0:
             _context3.next = 2;
             return _user["default"].find({
-              email: req.body.email
+              email: body.email
             });
 
           case 2:
