@@ -5,13 +5,15 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.newUser = exports.login = exports.forgetPassword = void 0;
+exports.resetPassword = exports.newUser = exports.login = exports.forgetPassword = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
 var _user = _interopRequireDefault(require("../models/user.model"));
+
+var _otp = _interopRequireDefault(require("../models/otp"));
 
 var _bcrypt = _interopRequireDefault(require("bcrypt"));
 
@@ -122,28 +124,25 @@ var forgetPassword = /*#__PURE__*/function () {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            console.log('1', body);
-            _context3.next = 3;
+            _context3.next = 2;
             return _user["default"].find({
               email: body.email
             });
 
-          case 3:
+          case 2:
             SearchMail = _context3.sent;
-            console.log('2', body);
 
             if (!SearchMail) {
-              _context3.next = 10;
+              _context3.next = 7;
               break;
             }
 
-            console.log('3');
             return _context3.abrupt("return", (0, _sendEmail.sendEmail)(body));
 
-          case 10:
+          case 7:
             return _context3.abrupt("return", false);
 
-          case 11:
+          case 8:
           case "end":
             return _context3.stop();
         }
@@ -154,6 +153,82 @@ var forgetPassword = /*#__PURE__*/function () {
   return function forgetPassword(_x3) {
     return _ref3.apply(this, arguments);
   };
-}();
+}(); // api for reset password
+
 
 exports.forgetPassword = forgetPassword;
+
+var resetPassword = /*#__PURE__*/function () {
+  var _ref4 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(body) {
+    var codepresent, HashedPassword, success;
+    return _regenerator["default"].wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.next = 2;
+            return _otp["default"].findOne({
+              email: body.email,
+              code: body.code
+            });
+
+          case 2:
+            codepresent = _context4.sent;
+
+            if (!codepresent) {
+              _context4.next = 19;
+              break;
+            }
+
+            console.log('1', codepresent);
+            _context4.next = 7;
+            return _bcrypt["default"].hash(body.password, 10);
+
+          case 7:
+            HashedPassword = _context4.sent;
+            body.password = HashedPassword;
+            console.log('2', HashedPassword);
+            _context4.next = 12;
+            return _user["default"].findOneAndUpdate({
+              email: body.email
+            }, {
+              $set: {
+                password: HashedPassword
+              }
+            }, {
+              "new": true
+            });
+
+          case 12:
+            success = _context4.sent;
+            console.log('8', success);
+
+            if (success) {
+              _context4.next = 17;
+              break;
+            }
+
+            console.log('3 - error');
+            return _context4.abrupt("return", false);
+
+          case 17:
+            console.log('4', success);
+            return _context4.abrupt("return", success);
+
+          case 19:
+            console.log('5- error');
+            return _context4.abrupt("return", false);
+
+          case 21:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4);
+  }));
+
+  return function resetPassword(_x4) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+
+exports.resetPassword = resetPassword;

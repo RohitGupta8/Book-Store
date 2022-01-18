@@ -31,8 +31,9 @@ var router = _express["default"].Router(); //route to create a new user
 
 router.post('/user', (0, _auth.setRole)('user'), _user2.newUserValidator, userController.newUser);
 router.post('/admin', _user2.newUserValidator, (0, _auth.setRole)('admin'), userController.newUser);
-router.post('/login', userController.login); // sendmail to reset forgetPassword
+router.post('/login', userController.login); // sendmail  for one time password for  forgetPassword
 
 router.post('/forgetpassword', userController.forgetPassword);
+router.patch('/reset', userController.resetPassword);
 var _default = router;
 exports["default"] = _default;

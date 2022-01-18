@@ -13,9 +13,11 @@ router.post('/user', setRole('user'),newUserValidator, userController.newUser);
 
 router.post('/admin', newUserValidator, setRole('admin'), userController.newUser);
 
-router.post('/login', userController.login)
+router.post('/login', userController.login);
 
-// sendmail to reset forgetPassword
-router.post('/forgetpassword', userController.forgetPassword)
+// sendmail  for one time password for  forgetPassword
+router.post('/forgetpassword', userController.forgetPassword);
+
+router.patch('/reset', userController.resetPassword)
 
 export default router;
