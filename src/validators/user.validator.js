@@ -35,3 +35,22 @@ export const newUserValidator = (req, res, next) => {
     next();
   }
 };
+
+export const forgot = (req, res, next) => {
+  const schema = Joi.object({
+    email: Joi.string()
+      .pattern(
+        new RegExp(
+          '^[a-zA-z]{2}([+-_ .]*[a-zA-Z0-9]+)*[@][a-zA-z0-9]+(.[a-z]{2,3})*$'
+        )
+      )
+      .required()
+  });
+  const { error, value } = schema.validate(req.body);
+  if (error) {
+    next(error);
+  } else {
+    req.validatedBody = value;
+    next();
+  }
+};

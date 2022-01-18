@@ -7,7 +7,7 @@ var _typeof = require("@babel/runtime/helpers/typeof");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.newUser = exports.login = void 0;
+exports.newUser = exports.login = exports.forgetPassword = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
@@ -110,3 +110,44 @@ var login = /*#__PURE__*/function () {
 }();
 
 exports.login = login;
+
+var forgetPassword = /*#__PURE__*/function () {
+  var _ref3 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res, next) {
+    var data;
+    return _regenerator["default"].wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.prev = 0;
+            _context3.next = 3;
+            return UserService.forgetPassword(req);
+
+          case 3:
+            data = _context3.sent;
+            res.status(_httpStatusCodes["default"].OK).json({
+              code: _httpStatusCodes["default"].OK,
+              data: data,
+              message: 'Mail Sent Sucesssfully'
+            });
+            _context3.next = 10;
+            break;
+
+          case 7:
+            _context3.prev = 7;
+            _context3.t0 = _context3["catch"](0);
+            next(_context3.t0);
+
+          case 10:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3, null, [[0, 7]]);
+  }));
+
+  return function forgetPassword(_x7, _x8, _x9) {
+    return _ref3.apply(this, arguments);
+  };
+}();
+
+exports.forgetPassword = forgetPassword;

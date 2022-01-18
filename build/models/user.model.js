@@ -7,6 +7,7 @@ exports["default"] = void 0;
 
 var _mongoose = require("mongoose");
 
+/* eslint-disable prettier/prettier */
 var userSchema = new _mongoose.Schema({
   firstName: {
     type: String,

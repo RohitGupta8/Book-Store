@@ -15,7 +15,7 @@ var userController = _interopRequireWildcard(require("../controllers/user.contro
 
 var _user2 = require("../validators/user.validator");
 
-var middleware = _interopRequireWildcard(require("../middlewares/auth.middleware"));
+var _auth = require("../middlewares/auth.middleware");
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
@@ -29,8 +29,10 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 var router = _express["default"].Router(); //route to create a new user
 
 
-router.post('/user', middleware.setRole('user'), _user2.newUserValidator, userController.newUser);
-router.post('/admin', _user2.newUserValidator, middleware.setRole('admin'), userController.newUser);
-router.post('/login', userController.login);
+router.post('/user', (0, _auth.setRole)('user'), _user2.newUserValidator, userController.newUser);
+router.post('/admin', _user2.newUserValidator, (0, _auth.setRole)('admin'), userController.newUser);
+router.post('/login', userController.login); // sendmail to reset forgetPassword
+
+router.post('/forgetpassword', _user2.forgot, userController.forgetPassword);
 var _default = router;
 exports["default"] = _default;

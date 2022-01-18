@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
+import { sendEmail } from '../utils/sendEmail'
 
 //create new user
 export const newUser = async (body) => {
@@ -17,7 +18,7 @@ export const newUser = async (body) => {
 // user login api
 export const login = async (body) => {
   const data = await User.findOne({ email: body.email });
-  const token = jwt.sign({ email: body.Email, id: body._id }, process.env.SECRET, { expiresIn: '5h' });
+  const token = jwt.sign({ email: body.email, id: body._id }, process.env.SECRET, { expiresIn: '5h' });
 
   const validate = await bcrypt.compare(body.password, data.password);
   if (validate) {
@@ -26,3 +27,16 @@ export const login = async (body) => {
     throw new Error('Invalid password');
   }
 };
+
+//api for forgot password
+export const forgetPassword = async (req) => {
+  const SearchMail = await User.find({ email: req.body.email });
+  const mail = sendEmail(SearchMail);
+  if (mail) {
+    return mail
+
+  } else {
+    throw Error('EMAIL ID NOT FOUND IN DATABASE!');
+  }
+}
+

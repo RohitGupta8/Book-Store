@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.newUser = exports.login = void 0;
+exports.newUser = exports.login = exports.forgetPassword = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
@@ -19,12 +19,14 @@ var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
+var _sendEmail = require("../utils/sendEmail");
+
 /* eslint-disable prettier/prettier */
 
 /* eslint-disable max-len */
-_dotenv["default"].config(); //create new user
+_dotenv["default"].config();
 
-
+//create new user
 var newUser = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(body) {
     var HashedPassword, data;
@@ -76,7 +78,7 @@ var login = /*#__PURE__*/function () {
           case 2:
             data = _context2.sent;
             token = _jsonwebtoken["default"].sign({
-              email: body.Email,
+              email: body.email,
               id: body._id
             }, process.env.SECRET, {
               expiresIn: '5h'
@@ -108,6 +110,48 @@ var login = /*#__PURE__*/function () {
   return function login(_x2) {
     return _ref2.apply(this, arguments);
   };
-}();
+}(); //api for forgot password
+
 
 exports.login = login;
+
+var forgetPassword = /*#__PURE__*/function () {
+  var _ref3 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req) {
+    var SearchMail, mail;
+    return _regenerator["default"].wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return _user["default"].find({
+              email: req.body.email
+            });
+
+          case 2:
+            SearchMail = _context3.sent;
+            mail = (0, _sendEmail.sendEmail)(SearchMail);
+
+            if (!mail) {
+              _context3.next = 8;
+              break;
+            }
+
+            return _context3.abrupt("return", mail);
+
+          case 8:
+            throw Error('EMAIL ID NOT FOUND IN DATABASE!');
+
+          case 9:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+
+  return function forgetPassword(_x3) {
+    return _ref3.apply(this, arguments);
+  };
+}();
+
+exports.forgetPassword = forgetPassword;
