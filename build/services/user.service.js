@@ -175,22 +175,18 @@ var resetPassword = /*#__PURE__*/function () {
             codepresent = _context4.sent;
 
             if (!codepresent) {
-              _context4.next = 19;
+              _context4.next = 15;
               break;
             }
 
-            console.log('1', codepresent);
-            _context4.next = 7;
+            _context4.next = 6;
             return _bcrypt["default"].hash(body.password, 10);
 
-          case 7:
+          case 6:
             HashedPassword = _context4.sent;
             body.password = HashedPassword;
-            console.log('2', HashedPassword);
-            _context4.next = 12;
-            return _user["default"].findOneAndUpdate({
-              email: body.email
-            }, {
+            _context4.next = 10;
+            return _user["default"].findOneAndUpdate(body.email, {
               $set: {
                 password: HashedPassword
               }
@@ -198,27 +194,24 @@ var resetPassword = /*#__PURE__*/function () {
               "new": true
             });
 
-          case 12:
+          case 10:
             success = _context4.sent;
             console.log('8', success);
 
             if (success) {
-              _context4.next = 17;
+              _context4.next = 14;
               break;
             }
 
-            console.log('3 - error');
             return _context4.abrupt("return", false);
 
-          case 17:
-            console.log('4', success);
+          case 14:
             return _context4.abrupt("return", success);
 
-          case 19:
-            console.log('5- error');
+          case 15:
             return _context4.abrupt("return", false);
 
-          case 21:
+          case 16:
           case "end":
             return _context4.stop();
         }
