@@ -41,7 +41,7 @@ router.post('/forgetpassword', userController.forgetPassword); // api for reset 
 
 router.patch('/reset', userController.resetPassword); //api for add books
 
-router.post('/book', _auth.userAuth, _book.newBookValidator, bookController.addBook); //api for get books
+router.post('/book', _auth.userAuth, _auth.isAdmin, _book.newBookValidator, bookController.addBook); //api for get books
 
 router.get('/book', _auth.userAuth, bookController.getBook); //api for get book by ID
 

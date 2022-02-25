@@ -1,4 +1,8 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable quotes */
+/* eslint-disable prettier/prettier */
+/* eslint-disable eqeqeq */
+/* eslint-disable prettier/prettier */
 import HttpStatus from 'http-status-codes';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
@@ -37,4 +41,19 @@ export const setRole = (role) => {
     req.body.role = role;
     next();
   };
+};
+
+
+export const isAdmin = (req, res, next) => {
+  let bearerToken = req.header('Authorization');
+  bearerToken = bearerToken.split(' ')[1];
+  const user = jwt.verify(bearerToken, process.env.SECRET);
+  const role = user.role;
+  if (role === 'admin') {
+    next();
+  } else {
+    return res.send({
+      message: 'You are not authorized to make this request'
+    });
+  }
 };

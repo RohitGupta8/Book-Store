@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.userAuth = exports.setRole = void 0;
+exports.userAuth = exports.setRole = exports.isAdmin = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
@@ -16,6 +16,14 @@ var _httpStatusCodes = _interopRequireDefault(require("http-status-codes"));
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
+
+/* eslint-disable prettier/prettier */
+
+/* eslint-disable quotes */
+
+/* eslint-disable prettier/prettier */
+
+/* eslint-disable eqeqeq */
 
 /* eslint-disable prettier/prettier */
 _dotenv["default"].config();
@@ -88,3 +96,22 @@ var setRole = function setRole(role) {
 };
 
 exports.setRole = setRole;
+
+var isAdmin = function isAdmin(req, res, next) {
+  var bearerToken = req.header('Authorization');
+  bearerToken = bearerToken.split(' ')[1];
+
+  var user = _jsonwebtoken["default"].verify(bearerToken, process.env.SECRET);
+
+  var role = user.role;
+
+  if (role === 'admin') {
+    next();
+  } else {
+    return res.send({
+      message: 'You are not authorized to make this request'
+    });
+  }
+};
+
+exports.isAdmin = isAdmin;

@@ -18,14 +18,17 @@ export const newUser = async (body) => {
 
 // user login api
 export const login = async (body) => {
-  const data = await User.findOne({ email: body.email });
-  const token = jwt.sign({ email: body.email, id: body._id }, process.env.SECRET, { expiresIn: '5h' });
-
-  const validate = await bcrypt.compare(body.password, data.password);
-  if (validate) {
-    return token;
+  const check = await User.findOne({ email: body.email });
+  if (check) {
+    const match = await bcrypt.compare(body.password, check.password);
+    if (match) {
+      const token = jwt.sign({ email: check.email, id: check._id, role: check.role }, process.env.SECRET);
+      return token;
+    } else {
+      return 'Incorrect Password'
+    }
   } else {
-    throw new Error('Invalid password');
+    return 'Not Registered Yet';
   }
 };
 
@@ -45,8 +48,8 @@ export const resetPassword = async (body) => {
   if (codepresent) {
     const HashedPassword = await bcrypt.hash(body.password, 10);
     body.password = HashedPassword
-    const success = await User.findOneAndUpdate( body.email , { $set: { password: HashedPassword } },{new:true});
-    console.log('8',success);
+    const success = await User.findOneAndUpdate(body.email, { $set: { password: HashedPassword } }, { new: true });
+    console.log('8', success);
     if (!success) {
       return false;
     }

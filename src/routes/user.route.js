@@ -6,7 +6,7 @@ import * as userController from '../controllers/user.controller';
 import { newUserValidator } from '../validators/user.validator';
 import { setRole } from '../middlewares/auth.middleware';
 import { newBookValidator } from '../validators/book.validators';
-import { userAuth } from '../middlewares/auth.middleware';
+import { userAuth , isAdmin } from '../middlewares/auth.middleware';
 import * as bookController from '../controllers/book.controller'
 
 const router = express.Router();
@@ -25,7 +25,7 @@ router.post('/forgetpassword', userController.forgetPassword);
 router.patch('/reset', userController.resetPassword);
 
 //api for add books
-router.post('/book',userAuth, newBookValidator, bookController.addBook);
+router.post('/book',userAuth, isAdmin, newBookValidator, bookController.addBook);
 
 //api for get books
 router.get('/book', userAuth, bookController.getBook);

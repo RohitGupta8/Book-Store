@@ -67,7 +67,7 @@ exports.newUser = newUser;
 
 var login = /*#__PURE__*/function () {
   var _ref2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(body) {
-    var data, token, validate;
+    var check, match, token;
     return _regenerator["default"].wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -78,30 +78,42 @@ var login = /*#__PURE__*/function () {
             });
 
           case 2:
-            data = _context2.sent;
-            token = _jsonwebtoken["default"].sign({
-              email: body.email,
-              id: body._id
-            }, process.env.SECRET, {
-              expiresIn: '5h'
-            });
-            _context2.next = 6;
-            return _bcrypt["default"].compare(body.password, data.password);
+            check = _context2.sent;
 
-          case 6:
-            validate = _context2.sent;
-
-            if (!validate) {
-              _context2.next = 11;
+            if (!check) {
+              _context2.next = 15;
               break;
             }
 
+            _context2.next = 6;
+            return _bcrypt["default"].compare(body.password, check.password);
+
+          case 6:
+            match = _context2.sent;
+
+            if (!match) {
+              _context2.next = 12;
+              break;
+            }
+
+            token = _jsonwebtoken["default"].sign({
+              email: check.email,
+              id: check._id,
+              role: check.role
+            }, process.env.SECRET);
             return _context2.abrupt("return", token);
 
-          case 11:
-            throw new Error('Invalid password');
-
           case 12:
+            return _context2.abrupt("return", 'Incorrect Password');
+
+          case 13:
+            _context2.next = 16;
+            break;
+
+          case 15:
+            return _context2.abrupt("return", 'Not Registered Yet');
+
+          case 16:
           case "end":
             return _context2.stop();
         }
