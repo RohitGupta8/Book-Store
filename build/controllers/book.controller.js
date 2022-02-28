@@ -33,36 +33,44 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
  */
 var addBook = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res, next) {
-    var data;
+    var bookData, data;
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             _context.prev = 0;
-            _context.next = 3;
-            return BookService.addBook(req.body);
+            bookData = {
+              author: req.body.author,
+              title: req.body.title,
+              image: req.file.path,
+              quantity: req.body.quantity,
+              price: req.body.price,
+              description: req.body.description
+            };
+            _context.next = 4;
+            return BookService.addBook(bookData);
 
-          case 3:
+          case 4:
             data = _context.sent;
             res.status(_httpStatusCodes["default"].CREATED).json({
               code: _httpStatusCodes["default"].CREATED,
               data: data,
-              message: 'Book created successfully'
+              message: "The Book \"".concat(data.title, "\" has Been Added!")
             });
-            _context.next = 10;
+            _context.next = 11;
             break;
 
-          case 7:
-            _context.prev = 7;
+          case 8:
+            _context.prev = 8;
             _context.t0 = _context["catch"](0);
             next(_context.t0);
 
-          case 10:
+          case 11:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 7]]);
+    }, _callee, null, [[0, 8]]);
   }));
 
   return function addBook(_x, _x2, _x3) {

@@ -12,16 +12,25 @@ import * as BookService from '../services/book.services';
  */
 export const addBook = async (req, res, next) => {
     try {
-        const data = await BookService.addBook(req.body);
+        const bookData = {
+            author: req.body.author,
+            title: req.body.title,
+            image: req.file.path,
+            quantity: req.body.quantity,
+            price: req.body.price,
+            description: req.body.description
+        };
+        const data = await BookService.addBook(bookData);
         res.status(HttpStatus.CREATED).json({
             code: HttpStatus.CREATED,
             data: data,
-            message: 'Book created successfully'
+            message: `The Book "${data.title}" has Been Added!`
         });
-    } catch (error) {
-        next(error);
+    } catch (err) {
+        next(err);
     }
 };
+
 
 export const getBook = async (req, res, next) => {
     try {

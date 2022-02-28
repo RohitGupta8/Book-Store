@@ -18,6 +18,7 @@ var newBookValidator = function newBookValidator(req, res, next) {
   var schema = _joi["default"].object({
     author: _joi["default"].string().min(2).required().pattern(new RegExp('^[A-Za-z ]{2,}$')),
     title: _joi["default"].string().min(2).required(),
+    image: _joi["default"].string(),
     quantity: _joi["default"].number().required(),
     price: _joi["default"].number().required(),
     description: _joi["default"].string().required()
